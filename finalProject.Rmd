@@ -1,0 +1,25 @@
+---
+title: "FinalProject"
+author: "Berdimyrat Mammedov"
+date: '31 March 2019 г '
+
+partner: "Dogancan Yormaz"
+datasource: "https://github.com/fivethirtyeight/data/edit/master/births/US_births_2000-2014_SSA.csv"
+
+Question: "We want to answer the question:  In which month in US a families have most child births?"
+Second Question: "What season people have more births!"
+Third Question: "What is the happy day! "
+output: html_document
+---
+
+
+
+
+### Obtaining data!
+
+```{r}
+getwd()
+read.csv("US_births_2000-2014_SSA.csv")
+
+```
+
