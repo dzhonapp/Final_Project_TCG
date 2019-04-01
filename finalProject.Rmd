@@ -2,7 +2,7 @@
 title: "FinalProject"
 author: "Berdimyrat Mammedov"
 date: '31 March 2019 г '
-
+github repo: "https://github.com/dzhonapp/Final_Project_TCG"
 partner: "Dogancan Yormaz"
 datasource: "https://github.com/fivethirtyeight/data/edit/master/births/US_births_2000-2014_SSA.csv"
 
