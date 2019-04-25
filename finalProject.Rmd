@@ -1,15 +1,17 @@
 ---
 title: "FinalProject"
 author: "Berdimyrat Mammedov"
-date: '31 March 2019 г '
-github repo: "https://github.com/dzhonapp/Final_Project_TCG"
-partner: "Dogancan Yormaz"
-datasource: "https://github.com/fivethirtyeight/data/edit/master/births/US_births_2000-2014_SSA.csv"
-
-Question: "We want to answer the question:  In which month in US a families have most child births?"
-Second Question: "What season people have more births!"
-Third Question: "What is the happy day! "
-output: html_document
+date: '31 March 2019 Рі '
+output:
+  html_document: default
+  pdf_document: default
+datasource: https://github.com/fivethirtyeight/data/edit/master/births/US_births_2000-2014_SSA.csv
+Third Question: 'What is the happy day! '
+github repo: https://github.com/dzhonapp/Final_Project_TCG
+Second Question: What season people have more births!
+partner: Dogancan Yormaz
+Question: 'We want to answer the question:  In which month in US a families have most
+  child births?'
 ---
 
 
@@ -20,7 +22,6 @@ output: html_document
 ```{r}
 getwd()
 birthInUSA <- read.csv("US_births_2000-2014_SSA.csv")
-birthInUSA
 
 ```
 
@@ -36,14 +37,17 @@ sumbyYear <- aggregate(dFrame['births'], by = dFrame['year'], sum)
 sumbyYear
 
 sumbyWeekDay <- aggregate(dFrame['births'], by = dFrame['day_of_week'], sum)
+sumbyWeekDay
 
-sumbyWeekMonth <- aggregate(dFrame['births'], by = dFrame['month'], sum)
-
-hist(sumbyYear$births)
+sumbyYear
+sumbyMonth <- aggregate(dFrame['births'], by = dFrame['month'], sum)
+sumbyMonth
+#hist(sumbyYear$births)
 
 ##LInear Model relation between birth and month
 
 lmodel1  <- lm(birthInUSA$births ~ birthInUSA$month, data = birthInUSA)
+lmodel1
 
 #linear model relation between birth and year
 lm(birthInUSA$births ~ birthInUSA$year, data = birthInUSA)
@@ -54,9 +58,13 @@ lm(birthInUSA$births ~ birthInUSA$year, data = birthInUSA)
 
 
 ```{r}
+mydata <- birthInUSA
+y <-mydata$births ; 
+x<-  mydata$month; 
+n<- length(y)
 
-y <-mydata$births ; x<-  mydata$month; n<- length(y)
 fit<- lm(y~x)
+
 e<- resid(fit)
 yhat <- predict(fit)
 max(abs(e-(y-yhat)))
@@ -65,12 +73,12 @@ max(abs(e-(y-coef(fit)[1]-coef(fit)[2]*x)))
 x = runif(100, -3,3)
 y = x + sin(x) + rnorm(100, sd = .2)
 library(ggplot2)
-g= ggplot(data.frame(x = x, y = resid(lm (y~x))), aes(x=x,y=y))
+g = ggplot(data.frame(x = x, y = resid(lm (y~x))), aes(x=x,y=y))
 g = g+ geom_hline(yintercept = 0, size =2)
 g = g+ geom_point(size = 7, colour ="black", alpha =0.4)
 g = g+ geom_point(size = 5, colour ="red", alpha =0.4)
 g= g+ xlab("Month") + ylab("Birth")
-
+g
 
 ```
 
@@ -102,6 +110,7 @@ g = g+ geom_hline(yintercept = 0, size =2)
 g = g+ geom_point(size = 7, colour ="black", alpha =0.4)
 g = g+ geom_point(size = 5, colour ="red", alpha =0.4)
 g= g+ xlab("Day of Week") + ylab("Birth")
+g
 ```
 
 
