@@ -19,7 +19,121 @@ output: html_document
 
 ```{r}
 getwd()
-read.csv("US_births_2000-2014_SSA.csv")
+birthInUSA <- read.csv("US_births_2000-2014_SSA.csv")
+birthInUSA
 
 ```
+
+### FINAL PROJECT MODELS
+
+```{r}
+summary(birthInUSA)
+dFrame <- data.frame(birthInUSA)
+library(ggplot2)
+## Getting birth by Year
+
+sumbyYear <- aggregate(dFrame['births'], by = dFrame['year'], sum)
+sumbyYear
+
+sumbyWeekDay <- aggregate(dFrame['births'], by = dFrame['day_of_week'], sum)
+
+sumbyWeekMonth <- aggregate(dFrame['births'], by = dFrame['month'], sum)
+
+hist(sumbyYear$births)
+
+##LInear Model relation between birth and month
+
+lmodel1  <- lm(birthInUSA$births ~ birthInUSA$month, data = birthInUSA)
+
+#linear model relation between birth and year
+lm(birthInUSA$births ~ birthInUSA$year, data = birthInUSA)
+
+
+
+```
+
+
+```{r}
+
+y <-mydata$births ; x<-  mydata$month; n<- length(y)
+fit<- lm(y~x)
+e<- resid(fit)
+yhat <- predict(fit)
+max(abs(e-(y-yhat)))
+max(abs(e-(y-coef(fit)[1]-coef(fit)[2]*x)))
+
+x = runif(100, -3,3)
+y = x + sin(x) + rnorm(100, sd = .2)
+library(ggplot2)
+g= ggplot(data.frame(x = x, y = resid(lm (y~x))), aes(x=x,y=y))
+g = g+ geom_hline(yintercept = 0, size =2)
+g = g+ geom_point(size = 7, colour ="black", alpha =0.4)
+g = g+ geom_point(size = 5, colour ="red", alpha =0.4)
+g= g+ xlab("Month") + ylab("Birth")
+
+
+```
+
+
+
+
+
+
+
+
+
+```{r}
+## Residual Plot Example (Day of Week)
+library(ggplot2)
+mydata <- read.csv("US_births_2000-2014_SSA.csv")
+
+
+y <-mydata$births ; x<-  mydata$day_of_week; n<- length(y)
+fit<- lm(y~x)
+e<- resid(fit)
+yhat <- predict(fit)
+max(abs(e-(y-yhat)))
+max(abs(e-(y-coef(fit)[1]-coef(fit)[2]*x)))
+x = runif(100, -3,3)
+y = x + sin(x) + rnorm(100, sd = .2)
+library(ggplot2)
+g= ggplot(data.frame(x = x, y = resid(lm (y~x))), aes(x=x,y=y))
+g = g+ geom_hline(yintercept = 0, size =2)
+g = g+ geom_point(size = 7, colour ="black", alpha =0.4)
+g = g+ geom_point(size = 5, colour ="red", alpha =0.4)
+g= g+ xlab("Day of Week") + ylab("Birth")
+```
+
+
+
+
+
+```{r}
+##Heteroskesdasticity example (Date of Month)
+library(ggplot2)
+mydata <- read.csv("US_births_2000-2014_SSA.csv")
+
+
+y <-mydata$births ; x<-  mydata$date_of_month; n<- length(y)
+fit<- lm(y~x)
+e<- resid(fit)
+yhat <- predict(fit)
+max(abs(e-(y-yhat)))
+max(abs(e-(y-coef(fit)[1]-coef(fit)[2]*x)))
+x = runif(100, 0, 6)
+y = x + rnorm(100, mean=0, sd = .002*x)
+library(ggplot2)
+g= ggplot(data.frame(x = x, y = resid(lm (y~x))), aes(x=x,y=y))
+g = g+ geom_hline(yintercept = 0, size =2)
+g = g+ geom_point(size = 7, colour ="black", alpha =0.4)
+g = g+ geom_point(size = 5, colour ="red", alpha =0.4)
+g= g+ xlab("Date of Month") + ylab("Birth")
+g
+
+
+```
+
+
+
+
 
