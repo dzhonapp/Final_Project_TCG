@@ -13,6 +13,10 @@ partner: Dogancan Yormaz
 Question: 'We want to answer the question:  In which month in US a families have most
   child births?'
 ---
+```{r}
+#inNumber of births factor of the months(give )
+
+```
 
 
 
@@ -42,6 +46,10 @@ sumbyWeekDay
 sumbyYear
 sumbyMonth <- aggregate(dFrame['births'], by = dFrame['month'], sum)
 sumbyMonth
+sumbyDateofMonth <- aggregate(dFrame['births'], by = dFrame['date_of_month'], sum)
+
+sumbyDateofMonth
+
 #hist(sumbyYear$births)
 
 ##LInear Model relation between birth and month
@@ -81,12 +89,6 @@ g= g+ xlab("Month") + ylab("Birth")
 g
 
 ```
-
-
-
-
-
-
 
 
 
@@ -141,6 +143,30 @@ g
 
 
 ```
+
+```{r}
+## In This graph we can see the birth quantity by month in given years! 
+plot_ly(sumbyMonth, x =sumbyMonth$month, y =  sumbyMonth$births, mode = 'markers')
+
+
+```
+
+```{r}
+
+
+plot_ly(x = mydata$day_of_week, y = mydata$births, color = mydata$year)
+
+
+
+```
+
+```{r}
+
+plot_ly(x = sumbyYear$year, y = sumbyYear$births, size = 10, color = sumbyYear$year)
+
+```
+
+
 
 
 
